@@ -1,102 +1,127 @@
 # Dev Brain
 
-A "Dev Brain" for your codebase: a governance-aware, probabilistic knowledge vault that acts as a guardian for your architecture.
+**Dev Brain** is a "Governance-Aware" knowledge vault for your codebase. It acts as a guardian for your software architecture, ensuring that AI coding assistants (like GitHub Copilot, Cursor, or custom agents) respect your project's rules and patterns.
 
-## Overview
+## Why Dev Brain?
 
-This project implements a system that:
-1.  **Observes** code changes (Guardian).
-2.  **Updates** a probabilistic model of rule compliance (Quantum State).
-3.  **Generates** governance-aware prompts for Coding LLMs (Composer).
+AI coding tools are powerful but often lack **architectural context**. They might generate code that works but violates your internal standards (e.g., "No direct SQL in service layers", "Always use the `Result` pattern").
 
-It ensures that AI coding assistants respect architectural rules ("decisions") by injecting relevant context and constraints into their prompts.
+Dev Brain solves this by:
+1.  **Observing** your codebase and user requests.
+2.  **Maintaining** a probabilistic model of rule compliance (the "Quantum State").
+3.  **Injecting** relevant governance rules and context into the prompts sent to your coding LLM.
 
-## Features
+## Architecture
 
--   **JSON Vault**: Stores knowledge in `.dev_brain/` (summaries, decisions, rule states, frames, graph).
--   **Guardian**: Analyzes user requests and code changes to update compliance beliefs.
--   **Composer**: Generates prompts with "Context Lensing" and "Governance State".
--   **Pipeline**: Orchestrates the flow from Change Event -> Guardian -> Composer.
--   **HTTP API**: Exposes the pipeline as a service.
--   **OpenAI/Codex Integration**: Uses OpenAI models (default: `gpt-5.1`) for file summarization and automated coding.
--   **VS Code Extension**: "Dev Brain Companion" to trigger the pipeline directly from your editor.
+The system consists of three main components:
+
+### 1. The Vault (`.dev_brain/`)
+A local JSON-based knowledge graph that stores:
+-   **Decisions**: Architectural rules and their status (e.g., `strict`, `lenient`).
+-   **File Summaries**: AI-generated summaries of your code files (Interface, Logic, Data views).
+-   **Rule States**: Probabilistic beliefs about how well each file complies with each rule.
+-   **Frames**: A timeline of events (user requests, code changes) that evolves the brain's understanding.
+
+### 2. The Guardian
+A background process that analyzes changes. When you modify a file, the Guardian:
+-   Checks for potential rule violations.
+-   Updates the "compliance score" for relevant rules.
+-   Records the event in the Vault's graph.
+
+### 3. The Composer
+The interface to your AI coder. When you ask for code, the Composer:
+-   Retrieves the relevant file summaries.
+-   Selects the most critical governance rules based on the current context.
+-   Constructs a **Governance-Aware Prompt** that guides the LLM to write compliant code.
 
 ## Installation
 
-Requires Python 3.10+ and Node.js (for the VS Code extension).
+### Prerequisites
+-   **Python 3.10+**
+-   **Node.js** (for VS Code extension packaging)
+-   **OpenAI API Key** (for the backend brain)
 
-1.  Clone the repository.
+### 1. Backend Setup
+1.  Clone this repository.
 2.  Install Python dependencies:
     ```bash
     pip install pydantic fastapi uvicorn openai
     ```
-3.  Set Environment Variables:
+3.  Set your OpenAI API key:
     ```powershell
-    $env:QDB_CODEX_API_KEY="your-openai-api-key"
-    # Optional:
-    # $env:QDB_CODEX_MODEL="gpt-5.1"
-    # $env:QDB_CODER_MODEL="gpt-5.1"
+    $env:QDB_CODEX_API_KEY="sk-..."
     ```
+
+### 2. VS Code Extension Setup
+The **Dev Brain Companion** extension allows you to interact with the brain directly from VS Code.
+
+1.  Navigate to the extension folder:
+    ```bash
+    cd dev-brain-vscode
+    ```
+2.  Install dependencies and package the extension:
+    ```bash
+    npm install
+    npm install -g @vscode/vsce
+    vsce package
+    ```
+3.  Install the generated `.vsix` file in VS Code:
+    -   Go to the **Extensions** view (`Ctrl+Shift+X`).
+    -   Click the `...` menu (Views and More Actions).
+    -   Select **Install from VSIX...**.
+    -   Choose the `dev-brain-vscode-0.0.1.vsix` file.
 
 ## Usage
 
-### 1. Start the Server
-The core backend must be running for the API and VS Code extension to work.
-```bash
-python -m dev_brain.cli_server
-```
-The API will be available at `http://127.0.0.1:8000`.
+### VS Code Extension ("Plug & Play")
+Once installed, the extension automatically manages the backend server.
 
-### 2. VS Code Extension
-The **Dev Brain Companion** allows you to run the cycle from VS Code.
+1.  Open your project folder in VS Code.
+2.  Ensure you have a `.dev_brain` directory (or run `python -m dev_brain.codex_ingest` to initialize one).
+3.  Open any code file.
+4.  Open the Command Palette (`Ctrl+Shift+P`) and run:
+    **`Dev Brain: Run Cycle for Current File`**
+5.  Enter your request (e.g., *"Add a new method to calculate tax"*).
+6.  The system will generate a prompt optimized for your architecture.
 
-1.  Navigate to `dev-brain-vscode/`.
-2.  Install dependencies: `npm install`.
-3.  Compile: `npm run compile`.
-4.  Run/Debug: Open the folder in VS Code and press `F5`.
-5.  Command: `Dev Brain: Run Cycle for Current File`.
+### Brain CLI
+Inspect the state of your brain directly from the terminal.
 
-### 3. CLI Demos
+-   **Global Status**:
+    ```bash
+    python -m dev_brain.brain_cli status
+    ```
+-   **List Rules**:
+    ```bash
+    python -m dev_brain.brain_cli rules
+    ```
+-   **File Governance State**:
+    ```bash
+    python -m dev_brain.brain_cli file path/to/file.py
+    ```
+-   **Recent Events (Frames)**:
+    ```bash
+    python -m dev_brain.brain_cli frames --last 5
+    ```
 
-#### Full Pipeline Demo
-Runs the end-to-end flow: User Request -> Guardian (Update Vault) -> Composer (Generate Prompt).
-```bash
-python -m dev_brain.demo_full
-```
+## Configuration
 
-#### Coder Agent Demo
-Demonstrates the full loop including an automated call to the Coder LLM (OpenAI).
-```bash
-python -m dev_brain.demo_coder
-```
+You can configure the VS Code extension in your User/Workspace Settings:
 
-#### Codex Ingestion
-Batch processes files to generate summaries using OpenAI.
-```bash
-python -m dev_brain.codex_ingest
-```
+-   `devBrain.pythonPath`: Path to the Python interpreter to use for the backend server (default: `python`).
+-   `devBrain.serverUrl`: URL of the backend server if running manually (default: `http://127.0.0.1:8000`).
 
 ## Project Structure
 
--   `dev_brain/`: Main Python package.
-    -   `models.py`: Pydantic models for the vault.
-    -   `vault_io.py`: JSON read/write operations.
-    -   `governance.py`: Logic for selecting relevant rules.
-    -   `metrics.py`: Heuristics for belief updates.
-    -   `guardian.py`: Core logic for processing changes.
-    -   `composer.py`: Prompt generation logic.
-    -   `pipeline.py`: Orchestration.
-    -   `server.py`: FastAPI application.
-    -   `openai_client.py`: Shared OpenAI client wrapper.
-    -   `codex_brain.py`: File summarization logic.
-    -   `coder_agent.py`: Automated coding agent logic.
--   `dev-brain-vscode/`: VS Code extension source.
--   `.dev_brain/`: The Knowledge Vault (JSON files).
+-   `dev_brain/`: Core Python package (Guardian, Composer, Server).
+-   `dev-brain-vscode/`: Source code for the VS Code extension.
+-   `.dev_brain/`: The local vault storage (JSON files).
 -   `tests/`: Unit tests.
 
 ## Testing
 
-Run the unit tests:
+Run the full test suite to verify the system:
 ```bash
 python -m unittest tests/test_dev_brain.py
+python -m unittest tests/test_brain_cli.py
 ```
