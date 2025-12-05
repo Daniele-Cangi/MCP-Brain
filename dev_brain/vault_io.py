@@ -21,6 +21,10 @@ def load_decisions() -> List[Decision]:
 def load_file_summary(file_path: str) -> Optional[FileSummary]:
     """Loads the summary for a specific file."""
     path = summary_path_for(file_path)
+    return load_file_summary_from_path(path)
+
+def load_file_summary_from_path(path: Path) -> Optional[FileSummary]:
+    """Loads the summary from a specific JSON path."""
     if not path.exists():
         return None
     
@@ -35,6 +39,10 @@ def load_file_summary(file_path: str) -> Optional[FileSummary]:
 def load_rule_states(file_path: str) -> Optional[RuleStatesForFile]:
     """Loads the rule states for a specific file."""
     path = rule_state_path_for(file_path)
+    return load_rule_states_from_path(path)
+
+def load_rule_states_from_path(path: Path) -> Optional[RuleStatesForFile]:
+    """Loads the rule states from a specific JSON path."""
     if not path.exists():
         return None
     
