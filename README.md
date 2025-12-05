@@ -2,126 +2,125 @@
 
 **Dev Brain** is a "Governance-Aware" knowledge vault for your codebase. It acts as a guardian for your software architecture, ensuring that AI coding assistants (like GitHub Copilot, Cursor, or custom agents) respect your project's rules and patterns.
 
-## Why Dev Brain?
+## Quick Start (2 minutes)
 
-AI coding tools are powerful but often lack **architectural context**. They might generate code that works but violates your internal standards (e.g., "No direct SQL in service layers", "Always use the `Result` pattern").
+1.  **Clone and Install Backend**:
+    ```bash
+    git clone <repo-url>
+    cd dev-brain
+    pip install -r requirements.txt
+    ```
 
-Dev Brain solves this by:
-1.  **Observing** your codebase and user requests.
-2.  **Maintaining** a probabilistic model of rule compliance (the "Quantum State").
-3.  **Injecting** relevant governance rules and context into the prompts sent to your coding LLM.
+2.  **Initialize Vault**:
+    This scans your code and creates the initial knowledge graph.
+    ```bash
+    # Set your OpenAI API Key first
+    # Windows (PowerShell): $env:QDB_CODEX_API_KEY="sk-..."
+    # Mac/Linux: export QDB_CODEX_API_KEY="sk-..."
+    
+    python -m dev_brain.codex_ingest
+    ```
+
+3.  **Start the Server**:
+    ```bash
+    python -m dev_brain.cli_server
+    ```
+    Server runs on `http://127.0.0.1:8000`.
+
+4.  **Install VS Code Extension**:
+    -   Go to `dev-brain-vscode/`.
+    -   Run `npm install` then `vsce package`.
+    -   Install the `.vsix` file in VS Code.
+    -   Open a Python file and run command: `Dev Brain: Run Cycle for Current File`.
+
+## The Problem & Solution
+
+### Example
+
+**Without Dev Brain:**
+> **User**: "Add user registration function"
+> **AI**: *Generates direct SQL queries in the service layer* ❌
+> *(Violates architectural separation of concerns)*
+
+**With Dev Brain:**
+> **User**: "Add user registration function"
+> **Dev Brain Injects**: "Context: Service layer detected. Rule DEC-005 applies: No direct SQL allowed. Use `UserRepository` pattern."
+> **AI**: *Generates compliant code using `UserRepository`* ✅
 
 ## Architecture
 
 The system consists of three main components:
 
-### 1. The Vault (`.dev_brain/`)
-A local JSON-based knowledge graph that stores:
--   **Decisions**: Architectural rules and their status (e.g., `strict`, `lenient`).
--   **File Summaries**: AI-generated summaries of your code files (Interface, Logic, Data views).
--   **Rule States**: Probabilistic beliefs about how well each file complies with each rule.
--   **Frames**: A timeline of events (user requests, code changes) that evolves the brain's understanding.
+1.  **The Vault (`.dev_brain/`)**: A local JSON-based knowledge graph.
+2.  **The Guardian**: Analyzes changes and updates compliance beliefs.
+3.  **The Composer**: Generates governance-aware prompts.
 
-### 2. The Guardian
-A background process that analyzes changes. When you modify a file, the Guardian:
--   Checks for potential rule violations.
--   Updates the "compliance score" for relevant rules.
--   Records the event in the Vault's graph.
+### Vault Structure (JSON)
 
-### 3. The Composer
-The interface to your AI coder. When you ask for code, the Composer:
--   Retrieves the relevant file summaries.
--   Selects the most critical governance rules based on the current context.
--   Constructs a **Governance-Aware Prompt** that guides the LLM to write compliant code.
+The brain stores knowledge in `.dev_brain/`:
 
-## Installation
+```json
+// decisions.json (The Rules)
+[
+  {
+    "id": "DEC-005",
+    "rule": "No direct SQL in Service Layers",
+    "status": "strict",
+    "amplitude": 0.9
+  }
+]
 
-### Prerequisites
--   **Python 3.10+**
--   **Node.js** (for VS Code extension packaging)
--   **OpenAI API Key** (for the backend brain)
-
-### 1. Backend Setup
-1.  Clone this repository.
-2.  Install Python dependencies:
-    ```bash
-    pip install pydantic fastapi uvicorn openai
-    ```
-3.  Set your OpenAI API key:
-    ```powershell
-    $env:QDB_CODEX_API_KEY="sk-..."
-    ```
-
-### 2. VS Code Extension Setup
-The **Dev Brain Companion** extension allows you to interact with the brain directly from VS Code.
-
-1.  Navigate to the extension folder:
-    ```bash
-    cd dev-brain-vscode
-    ```
-2.  Install dependencies and package the extension:
-    ```bash
-    npm install
-    npm install -g @vscode/vsce
-    vsce package
-    ```
-3.  Install the generated `.vsix` file in VS Code:
-    -   Go to the **Extensions** view (`Ctrl+Shift+X`).
-    -   Click the `...` menu (Views and More Actions).
-    -   Select **Install from VSIX...**.
-    -   Choose the `dev-brain-vscode-0.0.1.vsix` file.
-
-## Usage
-
-### VS Code Extension ("Plug & Play")
-Once installed, the extension automatically manages the backend server.
-
-1.  Open your project folder in VS Code.
-2.  Ensure you have a `.dev_brain` directory (or run `python -m dev_brain.codex_ingest` to initialize one).
-3.  Open any code file.
-4.  Open the Command Palette (`Ctrl+Shift+P`) and run:
-    **`Dev Brain: Run Cycle for Current File`**
-5.  Enter your request (e.g., *"Add a new method to calculate tax"*).
-6.  The system will generate a prompt optimized for your architecture.
-
-### Brain CLI
-Inspect the state of your brain directly from the terminal.
-
--   **Global Status**:
-    ```bash
-    python -m dev_brain.brain_cli status
-    ```
--   **List Rules**:
-    ```bash
-    python -m dev_brain.brain_cli rules
-    ```
--   **File Governance State**:
-    ```bash
-    python -m dev_brain.brain_cli file path/to/file.py
-    ```
--   **Recent Events (Frames)**:
-    ```bash
-    python -m dev_brain.brain_cli frames --last 5
-    ```
-
-## Configuration
-
-You can configure the VS Code extension in your User/Workspace Settings:
-
--   `devBrain.pythonPath`: Path to the Python interpreter to use for the backend server (default: `python`).
--   `devBrain.serverUrl`: URL of the backend server if running manually (default: `http://127.0.0.1:8000`).
-
-## Project Structure
-
--   `dev_brain/`: Core Python package (Guardian, Composer, Server).
--   `dev-brain-vscode/`: Source code for the VS Code extension.
--   `.dev_brain/`: The local vault storage (JSON files).
--   `tests/`: Unit tests.
-
-## Testing
-
-Run the full test suite to verify the system:
-```bash
-python -m unittest tests/test_dev_brain.py
-python -m unittest tests/test_brain_cli.py
+// rule_states/services_payment_service.json (The Beliefs)
+{
+  "file": "services/payment_service.py",
+  "rule_states": [
+    {
+      "rule_id": "DEC-005",
+      "state_belief": {
+        "compliant": 0.0,
+        "at_risk": 0.4,
+        "violating": 0.6
+      }
+    }
+  ]
+}
 ```
+
+## Technical Details
+
+-   **Python Version**: 3.10+
+-   **Node.js Version**: 16+ (for VS Code extension)
+-   **Server Port**: 8000 (Default)
+-   **API**: RESTful API built with FastAPI.
+    -   `POST /run-cycle`: Triggers the full Guardian-Composer pipeline.
+
+## Roadmap
+
+- [ ] **Rule Learning**: Automatically infer rules from existing code patterns.
+- [ ] **Multi-repo Support**: Share a "Brain" across multiple microservices.
+- [ ] **Git Integration**: Evolve rules based on PR reviews and commit history.
+- [ ] **Plugin System**: Support for custom static analysis engines.
+
+## Contributing
+
+We welcome contributions! Please follow these steps:
+1.  Fork the repository.
+2.  Create a feature branch.
+3.  Submit a Pull Request.
+
+## License
+
+MIT License. See `LICENSE` file for details.
+
+---
+
+### FAQ
+
+**Q: How are rules defined?**
+A: Currently, rules are defined manually in `.dev_brain/decisions.json`. Future versions will support learning rules from code.
+
+**Q: Does it support multiple languages?**
+A: The core logic is language-agnostic. The current implementation focuses on Python for parsing/summarization, but can be extended to TS/JS, Go, etc.
+
+**Q: What is the performance overhead?**
+A: Minimal. The "Brain" runs asynchronously. The VS Code extension waits for the prompt generation (usually 1-2 seconds), but the heavy lifting (updating the graph) happens in the background.
