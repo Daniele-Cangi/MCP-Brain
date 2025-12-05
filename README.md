@@ -59,6 +59,21 @@ The system consists of three main components:
 
 The brain stores knowledge in `.dev_brain/`:
 
+```mermaid
+graph TD
+    User([User Request]) -->|VS Code Extension| API[Dev Brain API]
+    API --> Guardian
+    
+    subgraph "Dev Brain Core"
+        Guardian -->|Analyze| Vault[(Knowledge Vault)]
+        Vault -->|Context| Composer
+        Guardian -->|Trigger| Composer
+    end
+    
+    Composer -->|Governance-Aware Prompt| LLM[Coder LLM]
+    LLM -->|Compliant Code| User
+```
+
 ```json
 // decisions.json (The Rules)
 [
