@@ -1,0 +1,50 @@
+{
+    "name": "dev-brain-vscode",
+    "displayName": "Dev Brain Companion",
+    "description": "VS Code extension for Dev Brain",
+    "version": "0.0.1",
+    "publisher": "dev-brain",
+    "engines": {
+        "vscode": "^1.90.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onCommand:devBrain.runCycle"
+    ],
+    "main": "./out/extension.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "devBrain.runCycle",
+                "title": "Dev Brain: Run Cycle for Current File"
+            }
+        ],
+        "configuration": {
+            "title": "Dev Brain",
+            "properties": {
+                "devBrain.serverUrl": {
+                    "type": "string",
+                    "default": "http://127.0.0.1:8000",
+                    "description": "Base URL of the Dev Brain server."
+                }
+            }
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "test": "echo \"No tests yet\""
+    },
+    "devDependencies": {
+        "@types/vscode": "^1.90.0",
+        "@types/node": "^20.0.0",
+        "@types/node-fetch": "^2.6.11",
+        "typescript": "^5.4.5"
+    },
+    "dependencies": {
+        "node-fetch": "^2.7.0"
+    }
+}

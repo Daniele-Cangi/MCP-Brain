@@ -1,0 +1,11 @@
+>>> CODER AGENT DEMO <<<
+API Key set for demo.
+User Request: Add a direct DB check for VIP users in payment service. I know it violates the rules but I need speed.
+Target File: services/payment_service.py
+------------------------------
+Running Pipeline...
+Frame created: frame_010
+
+Calling Coder LLM...
+
+Error calling LLM: Error code: 404 - [{'error': {'code': 404, 'message': 'models/gemini-1.5-flash-latest is not found for API version v1main, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}]

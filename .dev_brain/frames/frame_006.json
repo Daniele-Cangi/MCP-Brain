@@ -1,0 +1,28 @@
+{
+  "frame_id": "frame_006",
+  "timestamp": "2025-12-04T23:35:30.755207Z",
+  "user_goal": "Optimize the database queries in payment service to avoid N+1 problem",
+  "changed_files": [
+    "services/payment_service.py"
+  ],
+  "relevant_decisions": [
+    "DEC-005"
+  ],
+  "suspected_violations": [
+    {
+      "decision_id": "DEC-005",
+      "reason": "Potential violation of 'No direct SQL in Service Layers' in services/payment_service.py",
+      "state_belief": {
+        "compliant": 0.26,
+        "at_risk": 0.31,
+        "violating": 0.43
+      },
+      "status": "suspected"
+    }
+  ],
+  "predicted_risks": [],
+  "next_steps": [
+    "Review suspected violations",
+    "Run full compliance check"
+  ]
+}

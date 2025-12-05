@@ -1,0 +1,17 @@
+{
+  "frame_id": "frame_003",
+  "timestamp": "2025-12-04T23:18:33.437656Z",
+  "user_goal": "Add a direct DB check for VIP users in payment service. I know it violates the rules but I need speed.",
+  "changed_files": [
+    "services/payment_service.py"
+  ],
+  "relevant_decisions": [
+    "DEC-005"
+  ],
+  "suspected_violations": [],
+  "predicted_risks": [],
+  "next_steps": [
+    "Review suspected violations",
+    "Run full compliance check"
+  ]
+}

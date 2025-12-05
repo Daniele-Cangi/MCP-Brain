@@ -1,0 +1,23 @@
+C:\Users\dacan\OneDrive\Desktop\MCP\quantum_dev_brain\guardian.py:21: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  timestamp = datetime.utcnow().isoformat() + "Z"
+.E....C:\Users\dacan\OneDrive\Desktop\MCP\quantum_dev_brain\guardian.py:21: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  timestamp = datetime.utcnow().isoformat() + "Z"
+....
+======================================================================
+ERROR: test_coder_agent (tests.test_quantum.TestQuantumDevBrain.test_coder_agent)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\dacan\OneDrive\Desktop\MCP\tests\test_quantum.py", line 176, in test_coder_agent
+    response = call_coder_llm("Test Prompt")
+  File "C:\Users\dacan\OneDrive\Desktop\MCP\quantum_dev_brain\coder_agent.py", line 26, in call_coder_llm
+    model_name = model or os.environ.get("QDB_CODER_MODEL", "gpt-4.1-mini")
+                          ^^
+NameError: name 'os' is not defined. Did you forget to import 'os'?
+
+----------------------------------------------------------------------
+Ran 10 tests in 1.813s
+
+FAILED (errors=1)
+Error loading rule states from C:\Temp\tmpbjjjcc1v\.dev_brain\rule_states\services_test_api.json: Expecting value: line 1 column 1 (char 0)
+Error loading rule states from C:\Temp\tmpq_4ehub9\.dev_brain\rule_states\services_test_service.json: Expecting value: line 1 column 1 (char 0)
+Error loading rule states from C:\Temp\tmpwmsz8qj3\.dev_brain\rule_states\services_test_pipeline.json: Expecting value: line 1 column 1 (char 0)

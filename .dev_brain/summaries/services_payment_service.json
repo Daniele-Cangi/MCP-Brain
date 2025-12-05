@@ -1,0 +1,46 @@
+{
+    "file": "services/payment_service.py",
+    "hash": "sha256:dummy",
+    "lenses": {
+        "interface_view": {
+            "classes": [
+                "PaymentService"
+            ],
+            "public_methods": [
+                "process_payment(user_id: str, amount: Decimal) -> None"
+            ],
+            "dependencies": [
+                "UserRepository",
+                "BillingGateway"
+            ]
+        },
+        "logic_view": {
+            "flow": [
+                "validate payment input",
+                "load user by id",
+                "check vip flag (domain rule)",
+                "charge card via BillingGateway"
+            ],
+            "critical_branches": [
+                "vip_discount_apply",
+                "retry_logic"
+            ]
+        },
+        "data_view": {
+            "reads_from": [
+                "UserRepository.get_user",
+                "BillingGateway.charge"
+            ],
+            "writes_to": [
+                "PaymentLogRepository"
+            ],
+            "side_effects": [
+                "EmailService.send_receipt"
+            ]
+        }
+    },
+    "governance_tags": [
+        "service_layer",
+        "business_logic"
+    ]
+}

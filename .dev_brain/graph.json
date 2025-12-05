@@ -1,0 +1,375 @@
+{
+  "frames": [
+    {
+      "frame_id": "frame_001",
+      "timestamp": "2025-12-04T23:15:47.534020Z",
+      "user_goal": "Add a direct DB check for VIP users in payment service. I know it violates the rules but I need speed.",
+      "changed_files": [
+        "services/payment_service.py"
+      ],
+      "relevant_decisions": [
+        "DEC-005"
+      ],
+      "suspected_violations": [],
+      "predicted_risks": [],
+      "next_steps": [
+        "Review suspected violations",
+        "Run full compliance check"
+      ]
+    },
+    {
+      "frame_id": "frame_002",
+      "timestamp": "2025-12-04T23:16:55.016260Z",
+      "user_goal": "Add a direct DB check for VIP users in payment service. I know it violates the rules but I need speed.",
+      "changed_files": [
+        "services/payment_service.py"
+      ],
+      "relevant_decisions": [
+        "DEC-005"
+      ],
+      "suspected_violations": [],
+      "predicted_risks": [],
+      "next_steps": [
+        "Review suspected violations",
+        "Run full compliance check"
+      ]
+    },
+    {
+      "frame_id": "frame_003",
+      "timestamp": "2025-12-04T23:18:33.437656Z",
+      "user_goal": "Add a direct DB check for VIP users in payment service. I know it violates the rules but I need speed.",
+      "changed_files": [
+        "services/payment_service.py"
+      ],
+      "relevant_decisions": [
+        "DEC-005"
+      ],
+      "suspected_violations": [],
+      "predicted_risks": [],
+      "next_steps": [
+        "Review suspected violations",
+        "Run full compliance check"
+      ]
+    },
+    {
+      "frame_id": "frame_004",
+      "timestamp": "2025-12-04T23:24:49.451865Z",
+      "user_goal": "Add a direct DB check for VIP users in payment service. I know it violates the rules but I need speed.",
+      "changed_files": [
+        "services/payment_service.py"
+      ],
+      "relevant_decisions": [
+        "DEC-005"
+      ],
+      "suspected_violations": [
+        {
+          "decision_id": "DEC-005",
+          "reason": "Potential violation of 'No direct SQL in Service Layers' in services/payment_service.py",
+          "state_belief": {
+            "compliant": 0.26,
+            "at_risk": 0.31,
+            "violating": 0.43
+          },
+          "status": "suspected"
+        }
+      ],
+      "predicted_risks": [],
+      "next_steps": [
+        "Review suspected violations",
+        "Run full compliance check"
+      ]
+    },
+    {
+      "frame_id": "frame_005",
+      "timestamp": "2025-12-04T23:34:37.673034Z",
+      "user_goal": "Optimize the database queries in payment service to avoid N+1 problem",
+      "changed_files": [
+        "services/payment_service.py"
+      ],
+      "relevant_decisions": [
+        "DEC-005"
+      ],
+      "suspected_violations": [
+        {
+          "decision_id": "DEC-005",
+          "reason": "Potential violation of 'No direct SQL in Service Layers' in services/payment_service.py",
+          "state_belief": {
+            "compliant": 0.26,
+            "at_risk": 0.31,
+            "violating": 0.43
+          },
+          "status": "suspected"
+        }
+      ],
+      "predicted_risks": [],
+      "next_steps": [
+        "Review suspected violations",
+        "Run full compliance check"
+      ]
+    },
+    {
+      "frame_id": "frame_006",
+      "timestamp": "2025-12-04T23:35:30.755207Z",
+      "user_goal": "Optimize the database queries in payment service to avoid N+1 problem",
+      "changed_files": [
+        "services/payment_service.py"
+      ],
+      "relevant_decisions": [
+        "DEC-005"
+      ],
+      "suspected_violations": [
+        {
+          "decision_id": "DEC-005",
+          "reason": "Potential violation of 'No direct SQL in Service Layers' in services/payment_service.py",
+          "state_belief": {
+            "compliant": 0.26,
+            "at_risk": 0.31,
+            "violating": 0.43
+          },
+          "status": "suspected"
+        }
+      ],
+      "predicted_risks": [],
+      "next_steps": [
+        "Review suspected violations",
+        "Run full compliance check"
+      ]
+    },
+    {
+      "frame_id": "frame_007",
+      "timestamp": "2025-12-05T00:00:53.228151Z",
+      "user_goal": "Add a direct DB check for VIP users in payment service. I know it violates the rules but I need speed.",
+      "changed_files": [
+        "services/payment_service.py"
+      ],
+      "relevant_decisions": [
+        "DEC-005"
+      ],
+      "suspected_violations": [
+        {
+          "decision_id": "DEC-005",
+          "reason": "Potential violation of 'No direct SQL in Service Layers' in services/payment_service.py",
+          "state_belief": {
+            "compliant": 0.0,
+            "at_risk": 0.39,
+            "violating": 0.61
+          },
+          "status": "suspected"
+        }
+      ],
+      "predicted_risks": [],
+      "next_steps": [
+        "Review suspected violations",
+        "Run full compliance check"
+      ]
+    },
+    {
+      "frame_id": "frame_008",
+      "timestamp": "2025-12-05T00:01:18.544700Z",
+      "user_goal": "Add a direct DB check for VIP users in payment service. I know it violates the rules but I need speed.",
+      "changed_files": [
+        "services/payment_service.py"
+      ],
+      "relevant_decisions": [
+        "DEC-005"
+      ],
+      "suspected_violations": [
+        {
+          "decision_id": "DEC-005",
+          "reason": "Potential violation of 'No direct SQL in Service Layers' in services/payment_service.py",
+          "state_belief": {
+            "compliant": 0.0,
+            "at_risk": 0.39,
+            "violating": 0.61
+          },
+          "status": "suspected"
+        }
+      ],
+      "predicted_risks": [],
+      "next_steps": [
+        "Review suspected violations",
+        "Run full compliance check"
+      ]
+    },
+    {
+      "frame_id": "frame_009",
+      "timestamp": "2025-12-05T00:02:22.307564Z",
+      "user_goal": "Add a direct DB check for VIP users in payment service. I know it violates the rules but I need speed.",
+      "changed_files": [
+        "services/payment_service.py"
+      ],
+      "relevant_decisions": [
+        "DEC-005"
+      ],
+      "suspected_violations": [
+        {
+          "decision_id": "DEC-005",
+          "reason": "Potential violation of 'No direct SQL in Service Layers' in services/payment_service.py",
+          "state_belief": {
+            "compliant": 0.0,
+            "at_risk": 0.39,
+            "violating": 0.61
+          },
+          "status": "suspected"
+        }
+      ],
+      "predicted_risks": [],
+      "next_steps": [
+        "Review suspected violations",
+        "Run full compliance check"
+      ]
+    },
+    {
+      "frame_id": "frame_010",
+      "timestamp": "2025-12-05T00:02:54.350882Z",
+      "user_goal": "Add a direct DB check for VIP users in payment service. I know it violates the rules but I need speed.",
+      "changed_files": [
+        "services/payment_service.py"
+      ],
+      "relevant_decisions": [
+        "DEC-005"
+      ],
+      "suspected_violations": [
+        {
+          "decision_id": "DEC-005",
+          "reason": "Potential violation of 'No direct SQL in Service Layers' in services/payment_service.py",
+          "state_belief": {
+            "compliant": 0.0,
+            "at_risk": 0.39,
+            "violating": 0.61
+          },
+          "status": "suspected"
+        }
+      ],
+      "predicted_risks": [],
+      "next_steps": [
+        "Review suspected violations",
+        "Run full compliance check"
+      ]
+    },
+    {
+      "frame_id": "frame_011",
+      "timestamp": "2025-12-05T00:03:21.731848Z",
+      "user_goal": "Add a direct DB check for VIP users in payment service. I know it violates the rules but I need speed.",
+      "changed_files": [
+        "services/payment_service.py"
+      ],
+      "relevant_decisions": [
+        "DEC-005"
+      ],
+      "suspected_violations": [
+        {
+          "decision_id": "DEC-005",
+          "reason": "Potential violation of 'No direct SQL in Service Layers' in services/payment_service.py",
+          "state_belief": {
+            "compliant": 0.0,
+            "at_risk": 0.39,
+            "violating": 0.61
+          },
+          "status": "suspected"
+        }
+      ],
+      "predicted_risks": [],
+      "next_steps": [
+        "Review suspected violations",
+        "Run full compliance check"
+      ]
+    },
+    {
+      "frame_id": "frame_012",
+      "timestamp": "2025-12-05T00:51:07.289502Z",
+      "user_goal": "Add a direct DB check for VIP users in payment service. I know it violates the rules but I need speed.",
+      "changed_files": [
+        "services/payment_service.py"
+      ],
+      "relevant_decisions": [
+        "DEC-005"
+      ],
+      "suspected_violations": [
+        {
+          "decision_id": "DEC-005",
+          "reason": "Potential violation of 'No direct SQL in Service Layers' in services/payment_service.py",
+          "state_belief": {
+            "compliant": 0.0,
+            "at_risk": 0.39,
+            "violating": 0.61
+          },
+          "status": "suspected"
+        }
+      ],
+      "predicted_risks": [],
+      "next_steps": [
+        "Review suspected violations",
+        "Run full compliance check"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "from_frame_id": "frame_002",
+      "to_frame_id": "frame_002",
+      "type": "sequence",
+      "weight": 1.0
+    },
+    {
+      "from_frame_id": "frame_003",
+      "to_frame_id": "frame_003",
+      "type": "sequence",
+      "weight": 1.0
+    },
+    {
+      "from_frame_id": "frame_004",
+      "to_frame_id": "frame_004",
+      "type": "sequence",
+      "weight": 1.0
+    },
+    {
+      "from_frame_id": "frame_005",
+      "to_frame_id": "frame_005",
+      "type": "sequence",
+      "weight": 1.0
+    },
+    {
+      "from_frame_id": "frame_006",
+      "to_frame_id": "frame_006",
+      "type": "sequence",
+      "weight": 1.0
+    },
+    {
+      "from_frame_id": "frame_007",
+      "to_frame_id": "frame_007",
+      "type": "sequence",
+      "weight": 1.0
+    },
+    {
+      "from_frame_id": "frame_008",
+      "to_frame_id": "frame_008",
+      "type": "sequence",
+      "weight": 1.0
+    },
+    {
+      "from_frame_id": "frame_009",
+      "to_frame_id": "frame_009",
+      "type": "sequence",
+      "weight": 1.0
+    },
+    {
+      "from_frame_id": "frame_010",
+      "to_frame_id": "frame_010",
+      "type": "sequence",
+      "weight": 1.0
+    },
+    {
+      "from_frame_id": "frame_011",
+      "to_frame_id": "frame_011",
+      "type": "sequence",
+      "weight": 1.0
+    },
+    {
+      "from_frame_id": "frame_012",
+      "to_frame_id": "frame_012",
+      "type": "sequence",
+      "weight": 1.0
+    }
+  ]
+}

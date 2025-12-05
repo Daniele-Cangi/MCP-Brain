@@ -1,0 +1,15 @@
+{
+  "file": "services/payment_service.py",
+  "rule_states": [
+    {
+      "rule_id": "DEC-005",
+      "state_belief": {
+        "compliant": 0.0,
+        "at_risk": 0.39,
+        "violating": 0.61
+      },
+      "entangled_with": [],
+      "last_updated_frame": "frame_012"
+    }
+  ]
+}

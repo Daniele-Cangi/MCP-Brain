@@ -1,0 +1,48 @@
+{
+  "file": "C:/Users/dacan/OneDrive/Desktop/MCP/dev_brain/metrics.py",
+  "hash": "sha256:0eeab3d6c01f57b83f31cba860dbd9307cf17e12836af8548ac4d94e08188275",
+  "lenses": {
+    "interface_view": {
+      "classes": [],
+      "public_methods": [
+        "initial_state_belief",
+        "update_state_belief_for_request",
+        "merge_state_beliefs"
+      ],
+      "dependencies": [
+        "Decision",
+        "StateBelief"
+      ]
+    },
+    "logic_view": {
+      "flow": [
+        "initial_state_belief -> StateBelief",
+        "update_state_belief_for_request -> StateBelief",
+        "merge_state_beliefs -> StateBelief"
+      ],
+      "critical_branches": [
+        "check_for_topic_violations",
+        "check_for_confessions",
+        "check_for_forbidden_patterns"
+      ]
+    },
+    "data_view": {
+      "reads_from": [
+        "current",
+        "user_request",
+        "decision"
+      ],
+      "writes_to": [
+        "new_compliant",
+        "new_at_risk",
+        "new_violating"
+      ],
+      "side_effects": []
+    }
+  },
+  "governance_tags": [
+    "data_access",
+    "state_management",
+    "metrics"
+  ]
+}

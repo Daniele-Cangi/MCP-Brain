@@ -1,0 +1,23 @@
+[
+    {
+        "id": "DEC-005",
+        "topic": "Data Access",
+        "rule": "No direct SQL in Service Layers",
+        "allowed_pattern": "Use Repository Pattern only",
+        "forbidden_pattern": "import legacy_db in *_service.py",
+        "status": "strict",
+        "scope_layer": "architecture",
+        "amplitude": 0.93,
+        "decay": {
+            "half_life_frames": 200,
+            "introduced_in_frame": "frame_010",
+            "last_updated_frame": "frame_052"
+        },
+        "yin_exceptions": [
+            {
+                "code": "PERF_CRITICAL",
+                "description": "Direct SQL allowed in performance-critical hotspots with explicit approval."
+            }
+        ]
+    }
+]
